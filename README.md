@@ -29,7 +29,7 @@ git clone https://github.com/DimKFPS/bootcamp-kilat
 2. Pergi ke folder repo:
 
 ```sh
-cd note-app-backend
+cd bootcamp-kilat
 ```
 
 3. Instal dependencies:
