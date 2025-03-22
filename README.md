@@ -1,99 +1,43 @@
-# Note App Backend
+# Undangan Tamu Backend
 
-This is the backend for a note-taking application built with Express.js.
-
-This project follows a clean architecture approach, which aims to separate concerns and create a maintainable and scalable codebase. Here's a brief explanation of the structure:
-
-## Architecture:
-```mermaid
-graph TD
-    A[Presentation Layer] -->|Handles Requests| B[Routes]
-    B -->|Calls Controllers| C[Controllers]
-    C -->|Processes Logic| D[Services]
-    D -->|Accesses Data| E[Repositories]
-    E -->|Interacts with DB| F[Prisma ORM]
-
-    subgraph Domain Layer
-        D
-    end
-
-    subgraph Data Layer
-        E
-        F
-    end
-```
-
-### 📁 Project Structure  
-
-This project follows a clean and organized structure, ensuring maintainability and scalability. Below is an overview of the main directories and files:  
-
-### 📂 Root Directories  
-- **`api/`** - Entry point for the API, responsible for initializing and configuring the server.  
-- **`prisma/`** - Contains database schema and migration files.  
-- **`public/`** - Serves static files used by the application.  
-  - **`swagger-ui/`** - Assets for API documentation using Swagger UI.  
-- **`src/`** - Main source code directory.  
-
-### 📂 Source Code (`src/`)  
-#### 🏗️ Architecture Layers  
-- **`controllers/`** - Handles HTTP requests and responses.  
-- **`routes/`** - Defines API endpoints and connects them to controllers.  
-- **`services/`** - Contains business logic and core application functionality.  
-- **`repositories/`** - Manages database operations and interactions.  
-- **`models/`** - Defines data structures and database models.  
-
-#### 🔧 Supporting Modules  
-- **`middleware/`** - Custom middleware functions for request handling.  
-- **`utils/`** - Utility functions to support the application.  
-- **`types/`** - TypeScript type definitions for better type safety.  
-- **`docs/`** - OPEN API documentation.
-
-## 🛠️ Configuration Files  
-- **`package.json`** - Project manifest file.
-- **`tsconfig.json`** - TypeScript configuration file.  
-- **`vercel.json`** - Configuration for deployment on Vercel.  
+Praktik web development kelas Bootcamp Kilat GDGoC Universitas Gunadarma.
 
 ## API Endpoints
 
 ### Authentication
 
-- `POST /api/auth/sign-up` - Register a new user
-- `POST /api/auth/sign-in` - Log in an existing user
-- `GET /api/auth/authorize` - Authorize a user session
+- `POST /api/auth/signup` - Register admin
+- `POST /api/auth/signin` - Login admin
+- `GET /api/tamu` - Ambil semua data tamu (butuh bearer token)
+- `POST /api/tamu` - Buat data tamu baru (butuh bearer token)
+- `PUT /api/tamu/<id>` - Update data tamu (butuh bearer token)
+- `PATCH /api/tamu/<id> - Hapus data tamu (butuh bearer token)
 
-### Notes
-
-- `GET /api/notes` - Retrieve all notes
-- `POST /api/notes` - Create a new note
-- `GET /api/notes/:id` - Retrieve a specific note by ID
-- `PUT /api/notes/:id` - Update a specific note by ID
-- `PATCH /api/notes/:id` - Soft delete a specific note by ID
-
-## Getting Started
+## Jalankan program
 
 ### Prerequisites
 
-- Node.js
-- npm
+- Node.js v22+
+- Prisma @prisma/client
 
-### Installation
+### Instal
 
-1. Clone the repository:
+1. Clone repo:
 
 ```sh
-git clone https://github.com/Rafli-Dewanto/be-bootcamp-kilat.git note-app-backend
+git clone https://github.com/DimKFPS/bootcamp-kilat
 ```
 
-2. Navigate to the project directory:
+2. Pergi ke folder repo:
 
 ```sh
 cd note-app-backend
 ```
 
-3. Install dependencies:
+3. Instal dependencies:
 
 ```sh
-npm install
+npm i
 ```
 
 ### Database Setup
@@ -112,10 +56,11 @@ erDiagram
         Boolean isDeleted
     }
 
-    NOTE {
+    TAMU {
         Int id
-        String title
-        String content
+        String name
+        String no_hp
+        Boolean status_hadir
         DateTime createdAt
         DateTime updatedAt
         Boolean isDeleted
@@ -130,18 +75,10 @@ erDiagram
 npx prisma migrate dev
 ```
 
-### Running the Server
+### Jalankan server backend
 
 1. Start the development server:
 
 ```sh
-npm start
+npm run dev
 ```
-
-## Contributing
-
-Contributions are welcome! Please open an issue or submit a pull request.
-
-## License
-
-This project is licensed under the MIT License.
