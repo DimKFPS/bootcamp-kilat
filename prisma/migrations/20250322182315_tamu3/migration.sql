@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "notes" ALTER COLUMN "no_hp" SET DATA TYPE BIGINT;

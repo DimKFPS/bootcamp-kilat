@@ -16,8 +16,7 @@ datasource db {
 model Tamu {
   id Int @id @default(autoincrement())
   name String
-  email String @unique
-  no_hp Int @unique
+  no_hp String @unique
   status_hadir Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

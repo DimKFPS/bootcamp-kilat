@@ -1,18 +1,18 @@
 import { NextFunction, Response } from "express";
 import { responses } from "../constants";
 import { AuthRequest } from "../middleware/auth";
-import NoteService from "../services/note.service";
-import { NoteFilters } from "../types/note";
+import TamuService from "../services/tamu.service";
+import { TamuFilters } from "../types/tamu";
 import { PaginationParams } from "../types/pagination";
 
-class NoteController {
-  private noteService: NoteService;
+class TamuController {
+  private tamuService: TamuService;
 
-  constructor(noteService: NoteService) {
-    this.noteService = noteService;
+  constructor(tamuService: TamuService) {
+    this.tamuService = tamuService;
   }
 
-  async getAllNotes(req: AuthRequest, res: Response, next: NextFunction) {
+  async getAllTamus(req: AuthRequest, res: Response, next: NextFunction) {
     try {
       if (!req.user) {
         return res.status(500).json({
@@ -28,7 +28,7 @@ class NoteController {
           : undefined,
       };
 
-      const filters: NoteFilters = {
+      const filters: TamuFilters = {
         search: req.query.search as string,
         startDate: req.query.startDate
           ? new Date(req.query.startDate as string)
@@ -38,7 +38,7 @@ class NoteController {
           : undefined,
       };
 
-      const result = await this.noteService.getAllNotes(
+      const result = await this.tamuService.getAllTamus(
         req?.user.id,
         pagination,
         filters
@@ -53,7 +53,7 @@ class NoteController {
 
       res.status(200).json({
         success: true,
-        message: responses.successGetNotes,
+        message: responses.successGetTamus,
         ...result,
       });
     } catch (error) {
@@ -61,7 +61,7 @@ class NoteController {
     }
   }
 
-  async getNoteById(req: AuthRequest, res: Response, next: NextFunction) {
+  async getTamuById(req: AuthRequest, res: Response, next: NextFunction) {
     try {
       if (!req.user) {
         return res.status(500).json({
@@ -70,7 +70,7 @@ class NoteController {
         });
       }
 
-      const result = await this.noteService.getNoteById(
+      const result = await this.tamuService.getTamuById(
         Number(req.params.id),
         req.user.id
       );
@@ -84,7 +84,7 @@ class NoteController {
 
       return res.status(200).json({
         success: true,
-        message: responses.successGetNotes,
+        message: responses.successGetTamus,
         data: result.toDTO(),
       });
     } catch (error) {
@@ -92,7 +92,7 @@ class NoteController {
     }
   }
 
-  async createNote(req: AuthRequest, res: Response, next: NextFunction) {
+  async createTamu(req: AuthRequest, res: Response, next: NextFunction) {
     try {
       if (!req.user) {
         return res.status(500).json({
@@ -101,9 +101,10 @@ class NoteController {
         });
       }
 
-      const result = await this.noteService.createNote({
-        content: req.body.content,
-        title: req.body.title,
+      const result = await this.tamuService.createTamu({
+        name: req.body.name,
+        no_hp: req.body.no_hp,
+        status_hadir: req.body.status_hadir,
         email: req.user.email,
       });
 
@@ -116,7 +117,7 @@ class NoteController {
 
       res.status(201).json({
         success: true,
-        message: responses.successCreateNote,
+        message: responses.successCreateTamu,
         data: result.toDTO(),
       });
     } catch (error) {
@@ -124,7 +125,7 @@ class NoteController {
     }
   }
 
-  async updateNote(req: AuthRequest, res: Response, next: NextFunction) {
+  async updateTamu(req: AuthRequest, res: Response, next: NextFunction) {
     try {
       if (!req.user) {
         return res.status(500).json({
@@ -133,7 +134,7 @@ class NoteController {
         });
       }
 
-      const result = await this.noteService.updateNote(
+      const result = await this.tamuService.updateTamu(
         req.user.id,
         Number(req.params.id),
         req.body
@@ -148,7 +149,7 @@ class NoteController {
 
       res.status(200).json({
         success: true,
-        message: responses.successUpdateNote,
+        message: responses.successUpdateTamu,
         data: result.toDTO(),
       });
     } catch (error) {
@@ -156,7 +157,7 @@ class NoteController {
     }
   }
 
-  async softDeleteNote(req: AuthRequest, res: Response, next: NextFunction) {
+  async softDeleteTamu(req: AuthRequest, res: Response, next: NextFunction) {
     try {
       if (!req.user) {
         return res.status(500).json({
@@ -165,7 +166,7 @@ class NoteController {
         });
       }
 
-      const result = await this.noteService.softDeleteNote(
+      const result = await this.tamuService.softDeleteTamu(
         Number(req.params.id),
         req.user.id
       );
@@ -179,7 +180,7 @@ class NoteController {
 
       res.status(204).json({
         success: true,
-        message: responses.successDeleteNote,
+        message: responses.successDeleteTamu,
       });
     } catch (error) {
       next(error);
@@ -187,4 +188,4 @@ class NoteController {
   }
 }
 
-export default NoteController;
+export default TamuController;

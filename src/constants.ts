@@ -1,11 +1,11 @@
 export const responses = {
-  successGetNotes: "Success get notes",
-  successCreateNote: "Success create note",
-  successUpdateNote: "Success update note",
-  successDeleteNote: "Success delete note",
-  errorNotFound: "Note not found",
-  errorGetNotes: "Error get notes",
-  errorCreateNote: "Error create note",
-  errorUpdateNote: "Error update note",
-  errorDeleteNote: "Error delete note"
+  successGetTamus: "Success get tamus",
+  successCreateTamu: "Success create tamu",
+  successUpdateTamu: "Success update tamu",
+  successDeleteTamu: "Success delete tamu",
+  errorNotFound: "Tamu not found",
+  errorGetTamus: "Error get tamus",
+  errorCreateTamu: "Error create tamu",
+  errorUpdateTamu: "Error update tamu",
+  errorDeleteTamu: "Error delete tamu"
 }

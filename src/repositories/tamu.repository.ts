@@ -1,10 +1,10 @@
 import { PrismaClient, Prisma } from "@prisma/client";
-import Note from "../models/note.model";
-import { CreateNoteDto, UpdateNoteDto, NoteFilters } from "../types/note";
+import Tamu from "../models/tamu.model";
+import { CreateTamuDto, UpdateTamuDto, TamuFilters } from "../types/tamu";
 import { PaginationParams } from "../types/pagination";
 import { getErrorMessage } from "../utils/error";
 
-class NoteRepository {
+class TamuRepository {
   private prisma: PrismaClient;
 
   constructor(prisma: PrismaClient) {
@@ -14,26 +14,20 @@ class NoteRepository {
   async findAll(
     userId: number,
     pagination?: PaginationParams,
-    filters?: NoteFilters
-  ): Promise<{ notes: Note[]; total: number } | string> {
+    filters?: TamuFilters
+  ): Promise<{ tamus: Tamu[]; total: number } | string> {
     try {
       const page = pagination?.page || 1;
       const limit = pagination?.limit || 12;
       const skip = (page - 1) * limit;
 
-      const where: Prisma.NoteWhereInput = {
+      const where: Prisma.TamuWhereInput = {
         isDeleted: false,
         userId,
         ...(filters?.search && {
           OR: [
             {
-              title: {
-                contains: filters.search,
-                mode: Prisma.QueryMode.insensitive,
-              },
-            },
-            {
-              content: {
+              name: {
                 contains: filters.search,
                 mode: Prisma.QueryMode.insensitive,
               },
@@ -44,8 +38,8 @@ class NoteRepository {
         ...(filters?.endDate && { createdAt: { lte: filters.endDate } }),
       };
 
-      const [notes, total] = await Promise.all([
-        this.prisma.note.findMany({
+      const [tamus, total] = await Promise.all([
+        this.prisma.tamu.findMany({
           where,
           skip,
           take: limit,
@@ -53,11 +47,11 @@ class NoteRepository {
             createdAt: "desc",
           },
         }),
-        this.prisma.note.count({ where }),
+        this.prisma.tamu.count({ where }),
       ]);
 
       return {
-        notes: notes.map((note) => Note.fromEntity(note)),
+        tamus: tamus.map((tamu) => Tamu.fromEntity(tamu)),
         total,
       };
     } catch (error) {
@@ -65,71 +59,72 @@ class NoteRepository {
     }
   }
 
-  async findById(id: number, userId: number): Promise<Note | null | string> {
+  async findById(id: number, userId: number): Promise<Tamu | null | string> {
     try {
-      const note = await this.prisma.note.findFirst({
+      const tamu = await this.prisma.tamu.findFirst({
         where: {
           id,
           userId,
           isDeleted: false,
-        } as Prisma.NoteWhereInput,
+        } as Prisma.TamuWhereInput,
       });
-      return note ? Note.fromEntity(note) : null;
+      return tamu ? Tamu.fromEntity(tamu) : null;
     } catch (error) {
       return getErrorMessage(error);
     }
   }
 
-  async create(noteData: CreateNoteDto): Promise<Note | string> {
+  async create(tamuData: CreateTamuDto): Promise<Tamu | string> {
     try {
-      const note = await this.prisma.note.create({
+      const tamu = await this.prisma.tamu.create({
         data: {
-          title: noteData.title,
-          content: noteData.content,
+          name: tamuData.name,
+          no_hp: tamuData.no_hp,
+          status_hadir: tamuData.status_hadir,
           user: {
             connect: {
-              email: noteData.email,
+              email: tamuData.email,
             },
           },
           createdAt: new Date(),
           updatedAt: new Date(),
-        } as Prisma.NoteCreateInput,
+        } as Prisma.TamuCreateInput,
       });
-      return Note.fromEntity(note);
+      return Tamu.fromEntity(tamu);
     } catch (error) {
       return getErrorMessage(error);
     }
   }
 
-  async update(id: number, noteData: UpdateNoteDto): Promise<Note | string> {
+  async update(id: number, tamuData: UpdateTamuDto): Promise<Tamu | string> {
     try {
-      const note = await this.prisma.note.update({
-        where: { id } as Prisma.NoteWhereUniqueInput,
+      const tamu = await this.prisma.tamu.update({
+        where: { id } as Prisma.TamuWhereUniqueInput,
         data: {
-          ...noteData,
+          ...tamuData,
           updatedAt: new Date(),
         },
       });
-      return Note.fromEntity(note);
+      return Tamu.fromEntity(tamu);
     } catch (error) {
       return getErrorMessage(error);
     }
   }
 
-  async softDelete(id: number): Promise<Note | string> {
+  async softDelete(id: number): Promise<Tamu | string> {
     try {
-      const note = await this.prisma.note.update({
-        where: { id } as Prisma.NoteWhereUniqueInput,
+      const tamu = await this.prisma.tamu.update({
+        where: { id } as Prisma.TamuWhereUniqueInput,
         data: {
           isDeleted: true,
           updatedAt: new Date(),
-        } as Prisma.NoteUpdateInput,
+        } as Prisma.TamuUpdateInput,
       });
-      return Note.fromEntity(note);
+      return Tamu.fromEntity(tamu);
     } catch (error) {
       return getErrorMessage(error);
     }
   }
 }
 
-export default NoteRepository;
+export default TamuRepository;

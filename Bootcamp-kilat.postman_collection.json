@@ -1,0 +1,216 @@
+{
+	"info": {
+		"_postman_id": "5d79e4af-ef21-44f2-a43d-b19df6b16d3e",
+		"name": "Bootcamp-kilat",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43252817"
+	},
+	"item": [
+		{
+			"name": "Signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"dimas\",\n  \"email\": \"kfpschannel@gmail.com\",\n  \"password\": \"string\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/auth/signup",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create tamu",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImtmcHNjaGFubmVsQGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE3NDI2NjY2OTYsImV4cCI6MTc0MjY3MDI5Nn0.9FiDO97iHhzCLGdHA3GN94AOjCtO4FPx5fdKmfhdz1o",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"apalah\",\n    \"no_hp\": \"082117248718675\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/tamu",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"tamu"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update status_hadir",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImtmcHNjaGFubmVsQGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE3NDI2NjY2OTYsImV4cCI6MTc0MjY3MDI5Nn0.9FiDO97iHhzCLGdHA3GN94AOjCtO4FPx5fdKmfhdz1o",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"status_hadir\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/tamu/2",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"tamu",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete tamu",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImtmcHNjaGFubmVsQGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE3NDI2NjY2OTYsImV4cCI6MTc0MjY3MDI5Nn0.9FiDO97iHhzCLGdHA3GN94AOjCtO4FPx5fdKmfhdz1o",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"status_hadir\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/tamu/<taruh id sini>",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"tamu",
+						"<taruh id sini>"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET tamu",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImtmcHNjaGFubmVsQGdtYWlsLmNvbSIsImlkIjoxLCJpYXQiOjE3NDI2NjY2OTYsImV4cCI6MTc0MjY3MDI5Nn0.9FiDO97iHhzCLGdHA3GN94AOjCtO4FPx5fdKmfhdz1o",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/api/tamu",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"tamu"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Signin",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"kfpschannel@gmail.com\",\n    \"password\": \"string\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/api/auth/signin",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"auth",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
