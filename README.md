@@ -4,8 +4,6 @@ Praktik web development kelas Bootcamp Kilat GDGoC Universitas Gunadarma.
 
 ## API Endpoints
 
-### Authentication
-
 - `POST /api/auth/signup` - Register admin
 - `POST /api/auth/signin` - Login admin
 - `GET /api/tamu` - Ambil semua data tamu (butuh bearer token)
@@ -66,7 +64,7 @@ erDiagram
         Boolean isDeleted
     }
 
-    USER ||--o{ NOTE : "has many"
+    USER ||--o{ TAMU : "has many"
 ```
 
 1. Migrate prisma database:
