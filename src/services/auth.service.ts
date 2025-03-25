@@ -54,6 +54,7 @@ export default class AuthService {
         {
           email: user.email,
           id: user.id,
+          name: user.name,
         },
         SECRET_KEY,
         {

@@ -32,10 +32,19 @@ class TamuRepository {
                 mode: Prisma.QueryMode.insensitive,
               },
             },
+            {
+              no_hp: {
+                contains: filters.search,
+                mode: Prisma.QueryMode.insensitive,
+              },
+            },
           ],
         }),
         ...(filters?.startDate && { createdAt: { gte: filters.startDate } }),
         ...(filters?.endDate && { createdAt: { lte: filters.endDate } }),
+        ...(filters?.status_hadir !== undefined
+          ? { status_hadir: filters.status_hadir }
+          : {}),
       };
 
       const [tamus, total] = await Promise.all([
